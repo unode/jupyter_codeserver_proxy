@@ -7,17 +7,16 @@ for more information.
 import os
 import shutil
 
+
 def setup_codeserver():
     # Make sure codeserver is in $PATH
     def _codeserver_command(port):
-        full_path = shutil.which('code-server')
-        if not full_path:
-            raise FileNotFoundError('Can not find code-server in $PATH')
-        working_dir = os.getenv("CODE_WORKINGDIR", None)
-        if working_dir is None:
-            working_dir = os.getenv("JUPYTER_SERVER_ROOT", ".")
+        full_path = shutil.which('code-server-launcher')
 
-        return [full_path, f'--port={port}', "--auth", "none", working_dir ]
+        if not full_path:
+            raise FileNotFoundError('Can not find code-server-launcher in $PATH')
+
+        return [full_path, f"{port}"]
 
     return {
         'command': _codeserver_command,
